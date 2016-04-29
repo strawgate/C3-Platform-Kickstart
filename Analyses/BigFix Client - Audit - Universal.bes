@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Analysis>
 		<Title>BigFix Client - Audit - Universal</Title>
 		<Description><![CDATA[<P>This analysis provides detailed information on the current status of the BigFix Client.</P>
 <P>This analysis is almost entirely based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>]]></Description>
 		<Relevance><![CDATA[version of client > "8.0" /* some of the properties may work fine in older clients, and some require v9+ */]]></Relevance>
-		<MIMEField>
-			<Name>bigfixme-added-time</Name>
-			<Value>Mon, 02 Mar 2015 14:13:56 GMT</Value>
-		</MIMEField>
-		<MIMEField>
-			<Name>bigfixme-modification-time</Name>
-			<Value>Mon, 02 Mar 2015 14:13:56 GMT</Value>
-		</MIMEField>
-		<MIMEField>
-			<Name>bigfixme-keywords</Name>
-			<Value></Value>
-		</MIMEField>
-		<MIMEField>
-			<Name>bigfixme-ID</Name>
-			<Value>2994765</Value>
-		</MIMEField>
-		<MIMEField>
-			<Name>bigfixme-versions-ids</Name>
-			<Value>2994529,2994568,2994616,2994644,2994645,2994646,2994678,2994705</Value>
-		</MIMEField>
-		<MIMEField>
-			<Name>x-fixlet-modification-time</Name>
-			<Value>Sun, 24 Apr 2016 01:08:01 +0000</Value>
-		</MIMEField>
 		<Domain>BESC</Domain>
 		<Property Name="Client - Evaluation Cycle (Avg)- Universal" ID="7" EvaluationPeriod="PT30M">less significance 3 of (average of evaluationcycle of client as floating point / 1000 / 60)</Property>
 		<Property Name="Client - Evaluation Cycle (Max) - Universal" ID="8" EvaluationPeriod="PT30M">((maximum of it /1000* second)/minute) of evaluationcycle of client</Property>
@@ -54,4 +31,3 @@
 		<Property Name="Client - Bad Cache Files? - Universal" ID="58" EvaluationPeriod="P7D">items 0 of (name of it, sha1 of it) whose(item 0 of it != item 1 of it) of files of folders of folders "__Global\__Cache" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
 	</Analysis>
 </BES>
-
