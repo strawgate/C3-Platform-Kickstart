@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BigFix Client - Audit - Universal</Title>
+		<Description><![CDATA[<P>This analysis provides detailed information on the current status of the BigFix Client.</P>
+<P>This analysis is almost entirely based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>]]></Description>
+		<Relevance><![CDATA[version of client > "8.0" /* some of the properties may work fine in older clients, and some require v9+ */]]></Relevance>
+		<MIMEField>
+			<Name>bigfixme-added-time</Name>
+			<Value>Mon, 02 Mar 2015 14:13:56 GMT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>bigfixme-modification-time</Name>
+			<Value>Mon, 02 Mar 2015 14:13:56 GMT</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>bigfixme-keywords</Name>
+			<Value></Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>bigfixme-ID</Name>
+			<Value>2994765</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>bigfixme-versions-ids</Name>
+			<Value>2994529,2994568,2994616,2994644,2994645,2994646,2994678,2994705</Value>
+		</MIMEField>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 24 Apr 2016 01:08:01 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<Property Name="Client - Evaluation Cycle (Avg)- Universal" ID="7" EvaluationPeriod="PT30M">less significance 3 of (average of evaluationcycle of client as floating point / 1000 / 60)</Property>
+		<Property Name="Client - Evaluation Cycle (Max) - Universal" ID="8" EvaluationPeriod="PT30M">((maximum of it /1000* second)/minute) of evaluationcycle of client</Property>
+		<Property Name="Client - Max CPU Usage - Universal" ID="18" EvaluationPeriod="P1D">(((((it)/((it)+((if (not exists setting "_BESClient_Resource_SleepIdle" of client OR not exists value of setting "_BESClient_Resource_SleepIdle" of client) then 480 /* Default value */ else (value of setting "_BESClient_Resource_SleepIdle" of client as integer)) as floating point))) / (sum of cores of cpupackage as floating point)) * 100) as integer) of ((if (not exists setting "_BESClient_Resource_WorkIdle" of client OR not exists value of setting "_BESClient_Resource_WorkIdle" of client) then 10 /* Default value */ else (value of setting "_BESClient_Resource_WorkIdle" of client as integer)) as floating point)</Property>
+		<Property Name="Client - Installation Directory - Universal" ID="22" EvaluationPeriod="PT12H">parent folder of client</Property>
+		<Property Name="Client - Last UDP Ping - Universal" ID="24" EvaluationPeriod="P1D">last command times of client</Property>
+		<Property Name="Client - WorkIdle+SleepIdle - Universal" ID="26" EvaluationPeriod="PT12H">(if (not exists setting "_BESClient_Resource_WorkIdle" of client OR not exists value of setting "_BESClient_Resource_WorkIdle" of client) then 10 /* Default value */ else (value of setting "_BESClient_Resource_WorkIdle" of client as integer)) + (if (not exists setting "_BESClient_Resource_SleepIdle" of client OR not exists value of setting "_BESClient_Resource_SleepIdle" of client) then 480 /* Default value */ else (value of setting "_BESClient_Resource_SleepIdle" of client as integer))</Property>
+		<Property Name="Client - Slow Evaluations - Universal" ID="28" EvaluationPeriod="PT1H">following texts of firsts ": " of track fixlets whose(it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % Relevance - Universal" ID="29" EvaluationPeriod="PT1H">((relevance percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % property - Universal" ID="30" EvaluationPeriod="PT1H">((property percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % action - Universal" ID="31" EvaluationPeriod="PT1H">((action percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % gather - Universal" ID="32" EvaluationPeriod="PT1H">((gather percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % report - Universal" ID="33" EvaluationPeriod="PT1H">((report percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="First Report Time" ID="35" EvaluationPeriod="P1D">minimum of subscribe times of sites</Property>
+		<Property Name="Client - # Failed Syncs - Universal" ID="36" EvaluationPeriod="PT12H"><![CDATA[number of lines whose(it starts with "   FAILED to Synchronize - ") of files whose(exists name whose(length of it = 12 AND it as lowercase ends with ".log") of it AND exists lines of it) of folders "Logs" of folders "__Global" of folders (if (version of client > "9.0") then (pathname of data folder of client) else if (windows of operating system) then (pathname of folder "__BESData" of parent folder of client) else if (mac of operating system) then ("/Library/Application Support/BigFix/BES Agent/__BESData") else ERROR "undefined" /* Need to add an if/then/else clause for linux */)]]></Property>
+		<Property Name="Client - Failed Sync Sites - Universal" ID="37" EvaluationPeriod="PT12H"><![CDATA[(multiplicity of it, it) of unique values of preceding texts of firsts " (" of following texts of firsts " - " of previous lines of lines whose(it starts with "   FAILED to Synchronize - ") of files whose(exists name whose(length of it = 12 AND it as lowercase ends with ".log") of it AND exists lines of it) of folders "Logs" of folders "__Global" of folders (if (version of client > "9.0") then (pathname of data folder of client) else if (windows of operating system) then (pathname of folder "__BESData" of parent folder of client) else if (mac of operating system) then ("/Library/Application Support/BigFix/BES Agent/__BESData") else ERROR "undefined" /* Need to add an if/then/else clause for linux */)]]></Property>
+		<Property Name="Client - Actions whose exit code != 0 - Universal" ID="46" EvaluationPeriod="P2D">lines whose(it contains " (Exit Code=" AND it does not contain " (Exit Code=0)") of files whose((name of it as uppercase ends with ".LOG") AND (name of it as uppercase does not start with "INSTALL") AND (name of it as uppercase does not start with "SOFTWARE") AND (exists content whose(it contains "Current Date:" OR it contains "Client version" OR it contains "Report posted successfully") of it)) of folder "Logs" of folder "__Global" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+		<Property Name="Client - BESData Folder - Universal" ID="47" EvaluationPeriod="PT12H">( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+		<Property Name="Client - BigFix Log Folder - Universal" ID="48" EvaluationPeriod="PT12H">folder "Logs" of folder "__Global" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+		<Property Name="Client - Folders of SystemRoot - Universal" ID="49" EvaluationPeriod="PT6H">folders of root folder of drive of system folder</Property>
+		<Property Name="Client - Number of BigFix Log Files - Universal" ID="56" EvaluationPeriod="PT12H">number of files whose((name of it as lowercase ends with ".log") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+		<Property Name="Client - Number of BigFix Log Backups - Universal" ID="57" EvaluationPeriod="PT12H">number of files whose((name of it as lowercase ends with ".bkg") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+		<Property Name="Client - Bad Cache Files? - Universal" ID="58" EvaluationPeriod="P7D">items 0 of (name of it, sha1 of it) whose(item 0 of it != item 1 of it) of files of folders of folders "__Global\__Cache" of ( (if (exists properties whose(it as string starts with "data folder of " AND it as string contains "client")) then (data folder of client) else NULL)|(folder "/var/opt/BESClient/__BESData")|(folder "/Library/Application Support/BigFix/BES Agent/__BESData")|(folder "__BESData" of parent folder of client) )</Property>
+	</Analysis>
+</BES>
+

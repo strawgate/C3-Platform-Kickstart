@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Reference - Clientsettings.cfg</Title>
+		<Description>Sample clientsettings.cfg contents</Description>
+		<Relevance>true</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-03-30</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 24 Apr 2016 17:47:45 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Enter your action script here
+
+//__RelayServer1=http://server.domain.tld:52311/bfmirror/downloads/
+//_BESClient_Resource_StartupNormalSpeed=1
+//_BESClient_Download_RetryMinutes=1
+//_BESClient_Resource_WorkIdle=50
+//_BESClient_Resource_SleepIdle=500
+//_BESClient_Comm_CommandPollEnable=1
+//_BESClient_Comm_CommandPollIntervalSeconds=10800</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>
+

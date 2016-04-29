@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Config - Relay Setting - Cache Download Disk Limit - 60GB</Title>
+		<Description>Force relay cache size to 60GB </Description>
+		<Relevance>(not exists setting "_BESGather_Download_CacheLimitMB" of client) or ((exists setting "_BESGather_Download_CacheLimitMB" of client) and not (value of setting "_BESGather_Download_CacheLimitMB" of client = "61680"))</Relevance>
+		<Relevance>exists main gather service or exists relay service</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2014-04-12</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 24 Apr 2016 00:18:32 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Enter your action script here
+
+setting "_BESGather_Download_CacheLimitMB"="61680" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>
+

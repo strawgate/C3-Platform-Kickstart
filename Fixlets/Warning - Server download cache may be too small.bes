@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Warning - Server download cache may be too small</Title>
+		<Description>This fixlet is relevant if the server download cache is set to a value smaller than 20 GB (Default is 1 GB) </Description>
+		<Relevance>exists main gather service</Relevance>
+		<Relevance><![CDATA[(not exists setting "_BESGather_Download_CacheLimitMB" of client) or ((exists setting "_BESGather_Download_CacheLimitMB" of client) and (value of setting "_BESGather_Download_CacheLimitMB" of client as integer < 20480))]]></Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-04-24</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 24 Apr 2016 17:43:24 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>
+

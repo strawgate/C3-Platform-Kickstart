@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Warning - Client download cache may be too small</Title>
+		<Description><![CDATA[This fixlet is relevant if the client download cache is set to a value smaller than&nbsp;2 GB (Default is&nbsp;2 GB) ]]></Description>
+		<Relevance><![CDATA[(not exists setting "_BESClient_Download_NormalStageDiskLimitMB" of client) or ((exists setting "_BESClient_Download_NormalStageDiskLimitMB" of client) and (value of setting "_BESClient_Download_NormalStageDiskLimitMB" of client as integer < 2048))]]></Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-04-24</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Sun, 24 Apr 2016 17:08:42 +0000</Value>
+		</MIMEField>
+		<Domain>BESC</Domain>
+	</Fixlet>
+</BES>
+
