@@ -3,7 +3,8 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Fixlet>
 		<Title>Config - Client Setting - Secondary Relay - relay.domain.tld</Title>
-		<Description>Sets the secondary relay on the client </Description>
+		<Description><![CDATA[Sets the secondary relay on the client 
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance>not exists (setting "__RelayServer2" of client) whose (value of it = "http://relay.domain.tld:52311/bfmirror/downloads/")</Relevance>
 		<Category></Category>
 		<Source>Internal</Source>

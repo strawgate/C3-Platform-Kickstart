@@ -3,7 +3,8 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Fixlet>
 		<Title>Config - Relay Setting - Cache Download Disk Limit - 120GB</Title>
-		<Description>Force relay cache size to 120GB </Description>
+		<Description><![CDATA[Force relay cache size to 120GB 
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance>(not exists setting "_BESGather_Download_CacheLimitMB" of client) or ((exists setting "_BESGather_Download_CacheLimitMB" of client) and not (value of setting "_BESGather_Download_CacheLimitMB" of client = "122880"))</Relevance>
 		<Relevance><![CDATA[((version of client >= "6.0.0.0") AND (exists true whose (if true then (exists (if exists relay service then "Yes - " & state of service "BESRelay" else if exists main gather service then "BES Root Server" else "") whose (it as string as lowercase contains "Yes" as lowercase)) else false)))]]></Relevance>
 		<Category></Category>

@@ -4,7 +4,8 @@
 	<Analysis>
 		<Title>BigFix Client - Configuration - Universal</Title>
 		<Description><![CDATA[<P>This analysis provides detailed information on the current configuration of the BigFix Client.</P>
-<P>This analysis is almost entirely based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>]]></Description>
+<P>This analysis is almost entirely based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance><![CDATA[version of client > "8.0" /* some of the properties may work fine in older clients, and some require v9+ */]]></Relevance>
 		<Domain>BESC</Domain>
 		<Property Name="Setting - Download_DownloadsCacheLimitMB - Universal" ID="3" EvaluationPeriod="PT12H">if (not exists setting "_BESClient_Download_DownloadsCacheLimitMB" whose (exists value of it) of client) then ERROR "not set - 20" else (value of setting "_BESClient_Download_DownloadsCacheLimitMB" whose (exists value of it) of client)</Property>

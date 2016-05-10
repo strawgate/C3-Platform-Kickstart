@@ -3,7 +3,8 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Fixlet>
 		<Title>Config - Client Setting - Normal Download Disk Limit - 8GB</Title>
-		<Description><![CDATA[<P>This fixlet will change the client disk limit setting</P>]]></Description>
+		<Description><![CDATA[<P>This fixlet will change the client disk limit setting</P>
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance>not exists (setting "_BESClient_Download_NormalStageDiskLimitMB" of client) whose (value of it as integer = 8000)</Relevance>
 		<Category>Configuration</Category>
 		<DownloadSize>0</DownloadSize>

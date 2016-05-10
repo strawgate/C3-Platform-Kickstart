@@ -3,7 +3,8 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Fixlet>
 		<Title>Config - Client Setting - Log Retention - 14 Days</Title>
-		<Description><![CDATA[<P>This fixlet will change the log retention of the client to 14 days</P>]]></Description>
+		<Description><![CDATA[<P>This fixlet will change the log retention of the client to 14 days</P>
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance>not exists (settings "_BESClient_Log_Days" of client) whose (value of it as integer = 14)</Relevance>
 		<Category>Configuration</Category>
 		<DownloadSize>0</DownloadSize>
