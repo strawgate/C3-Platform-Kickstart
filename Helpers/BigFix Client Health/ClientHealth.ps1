@@ -39,10 +39,10 @@ Function Check-ClientRegistry {
 Function Get-InstallDir {
     if ($ENV:PROCESSOR_ARCHITECTURE -eq "AMD64") {
         $Registry = test-path "HKLM:\SOFTWARE\WOW6432Node\BigFix"
-        $InstallDir = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\WOW6432Node\BigFix\EnterpriseClient" -Name "EnterpriseClientFolder" -ErrorAction SilentlyContinue
+        $InstallDir = (Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\BigFix\EnterpriseClient" -ErrorAction SilentlyContinue).EnterpriseClientFolder
     } else {
         $Registry = test-path "HKLM:\SOFTWARE\BigFix"
-        $InstallDir = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\BigFix\EnterpriseClient" -Name "EnterpriseClientFolder" -ErrorAction SilentlyContinue
+        $InstallDir = (Get-ItemProperty -Path "HKLM:\SOFTWARE\BigFix\EnterpriseClient" -ErrorAction SilentlyContinue).EnterpriseClientFolder
     }
 
     return $InstallDir
