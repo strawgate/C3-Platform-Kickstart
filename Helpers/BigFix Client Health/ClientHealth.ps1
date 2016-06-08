@@ -23,7 +23,13 @@ Function Check-ClientLogs {
     if (!(test-path "$InstallDir\__BESData\__Global\Logs")) {throw "BigFix __BESData\Global\Logs directory missing"}
 
     $Logs = get-childitem -path "$InstallDir\__BESData\__Global\Logs"
-    if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).ToShortDateString()})) { throw "No BigFix Log for today" }
+    if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).ToShortDateString()})) { 
+        if ((get-date).hour -le 1) {
+            write-log "No log for today but it's too close to Midnight to fail."
+        } else {
+            throw "No BigFix Log for today"
+        }
+    }
 
     if (!(test-path "$InstallDir\besclient.exe")) {throw "BigFix executable missing"}
 
