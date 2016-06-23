@@ -24,10 +24,9 @@ Function Check-ClientLogs {
 
     $Logs = get-childitem -path "$InstallDir\__BESData\__Global\Logs"
     if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).ToShortDateString()})) { 
-        if ((get-date).hour -le 1) {
-            write-log "No log for today but it's too close to Midnight to fail."
-        } else {
-            throw "No BigFix Log for today"
+        write-log "No BigFix Log for Today"
+        if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).addDays(-1).ToShortDateString()})) {     
+            throw "No BigFix Log for yesterday"
         }
     }
 
