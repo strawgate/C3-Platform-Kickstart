@@ -24,10 +24,9 @@ Function Check-ClientLogs {
 
     $Logs = get-childitem -path "$InstallDir\__BESData\__Global\Logs"
     if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).ToShortDateString()})) { 
-        if ((get-date).hour -le 1) {
-            write-log "No log for today but it's too close to Midnight to fail."
-        } else {
-            throw "No BigFix Log for today"
+        write-log "No BigFix Log for Today"
+        if (!($Logs | where-object {$_.LastWriteTime.ToShortDateString() -eq (Get-Date).addDays(-1).ToShortDateString()})) {     
+            throw "No BigFix Log for yesterday"
         }
     }
 
@@ -86,23 +85,46 @@ Function Clean-BigFix {
     start-process "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe" -ArgumentList "/silent /client /force" -wait
 }
 
+Function Clean-BigFix {
+    write-log "Cleaning off BigFix"
+    
+    start-process "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe" -ArgumentList "/silent /client /force" -wait
+}
+
 Function Cache-Downloads {
 
     new-item "$($env:windir)\BigFix\Installer Cache" -ItemType directory -ErrorAction SilentlyContinue
+    $wc = new-object System.Net.WebClient
 
+    #Cleaner
     write-log "Downloading Cleaner"
-    Invoke-WebRequest -uri "https://www.ibm.com/developerworks/community/wikis/form/anonymous/api/wiki/90553c0b-42eb-4df0-9556-d3c2e0ac4c52/page/90bfd4e5-98b9-4a9b-a6cb-812f1f8d5702/attachment/63b54d70-2290-4044-8b67-6eb0a4d66cfc/media/BESRemove9.5.0.311.exe" -OutFile "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe" -ErrorAction Stop
 
+    $Source = "https://www.ibm.com/developerworks/community/wikis/form/anonymous/api/wiki/90553c0b-42eb-4df0-9556-d3c2e0ac4c52/page/90bfd4e5-98b9-4a9b-a6cb-812f1f8d5702/attachment/63b54d70-2290-4044-8b67-6eb0a4d66cfc/media/BESRemove9.5.0.311.exe"
+    $Destination = "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe"
+    remove-item "$Destination" -ErrorAction SilentlyContinue
+    
+    $wc.DownloadFile($source, $destination)
+
+    # Setup
     write-log "Downloading BigFix Setup" 
-    remove-item "$($env:windir)\BigFix\Installer Cache\BES-Setup.exe" -ErrorAction SilentlyContinue
-    Invoke-WebRequest -uri $Installer -OutFile "$($env:windir)\BigFix\Installer Cache\BES-Setup.exe" -ErrorAction stop
-    if (!(test-path "$($env:windir)\BigFix\Installer Cache\BES-Setup.exe")) { throw "Error Downloading Installer" }
+    
+    $Source = $Installer
+    $Destination = "$($env:windir)\BigFix\Installer Cache\BES-Setup.exe"
+    
+    remove-item "$Destination" -ErrorAction SilentlyContinue
+    $wc.DownloadFile($source, $destination)
+    if (!(test-path "$Destination")) { throw "Error Downloading Installer" }
 
+    #Masthead
     write-log "Downloading MastHead"
-    remove-item "$($env:windir)\BigFix\Installer Cache\masthead.afxm" -ErrorAction SilentlyContinue
-    $Download = Invoke-WebRequest -uri $Masthead -OutFile "$($env:windir)\BigFix\Installer Cache\masthead.afxm" -ErrorAction Stop
-    if (!(test-path "$($env:windir)\BigFix\Installer Cache\masthead.afxm")) { throw "Error Downloading Installer" }
-
+    
+    $Source = $Masthead
+    $Destination = "$($env:windir)\BigFix\Installer Cache\masthead.afxm"
+    
+    remove-item "$Destination" -ErrorAction SilentlyContinue
+    
+    $wc.DownloadFile($source, $destination)
+    if (!(test-path "$Destination")) { throw "Error Downloading Installer" }
 }
 
 Function Install-BigFix {
