@@ -27,8 +27,8 @@
 		<Property Name="Setting - ArchiveManager_IntervalSeconds - Universal" ID="53" EvaluationPeriod="PT12H">value of settings "_BESClient_ArchiveManager_IntervalSeconds" of client | ERROR "86400"</Property>
 		<Property Name="Setting - UploadManager_BufferDirectory - Universal" ID="54" EvaluationPeriod="PT12H">value of settings "_BESClient_UploadManager_BufferDirectory" of client | ERROR "__BESData/__Global/Upload"</Property>
 		<Property Name="Setting - Log_Days - Universal" ID="55" EvaluationPeriod="PT12H">value of settings "_BESClient_Log_Days" of client | ERROR "10"</Property>
-		<Property Name="Setting - All Client Settings - Universal" ID="61">settings whose(value of it as trimmed string != "" AND name of it starts with "_BESClient") of client</Property>
-		<Property Name="Setting - Command Polling - Universal" ID="63">if(not exists setting "_BESClient_Comm_CommandPollEnable" whose(value of it = "1") of client) then ERROR "disabled" else (if(not exists setting "_BESClient_Comm_CommandPollIntervalSeconds" of client) then ERROR "not set" else (value of setting "_BESClient_Comm_CommandPollIntervalSeconds" of client))</Property>
-		<Property Name="Setting - ComputerType - Universal" ID="64">if (not exists setting "_BESClient_ComputerType" whose (exists value of it) of client) then ERROR "not set" else (value of setting "_BESClient_ComputerType" whose (exists value of it) of client)</Property>
+		<Property Name="Setting - All Client Settings - Universal" ID="61" EvaluationPeriod="P1D">settings whose(value of it as trimmed string != "" AND name of it starts with "_BESClient") of client</Property>
+		<Property Name="Setting - Command Polling - Universal" ID="63" EvaluationPeriod="P1D">if(not exists setting "_BESClient_Comm_CommandPollEnable" whose(value of it = "1") of client) then ERROR "disabled" else (if(not exists setting "_BESClient_Comm_CommandPollIntervalSeconds" of client) then ERROR "not set" else (value of setting "_BESClient_Comm_CommandPollIntervalSeconds" of client))</Property>
+		<Property Name="Setting - ComputerType - Universal" ID="64" EvaluationPeriod="P1D">if (not exists setting "_BESClient_ComputerType" whose (exists value of it) of client) then ERROR "not set" else (value of setting "_BESClient_ComputerType" whose (exists value of it) of client)</Property>
 	</Analysis>
 </BES>
