@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Config - Client Setting - Command Polling - 90 Minutes</Title>
+		<Description><![CDATA[BES Clients listen for UDP commands that have been sent to them by their parent Relay or Server.&nbsp; Sometimes UDP commands may not make it to a Client, as when UDP has been blocked by a firewall or there is a significant amount of network traffic.<BR><BR>This task configures Clients to poll their parent Relay or Server once an hour for UDP commands they may have missed (BigFix 6.0+).<BR><BR><B>Note</B>: The minimum value for the polling interval is 1 minute and the maximum is 2 days.<BR><BR><B>Note:</B>&nbsp; Setting the polling interval to less than 20 minutes may cause performances issues and is not recommended. ]]></Description>
+		<Relevance>not exists (settings "_BESClient_Comm_CommandPollIntervalSeconds" of client) whose (value of it as integer = 5400)</Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-07-19</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">// Enter your action script here
+
+setting "_BESClient_Comm_CommandPollIntervalSeconds"="5400" on "{parameter "action issue date" of action}" for client</ActionScript>
+		</DefaultAction>
+	</Fixlet>
+</BES>
