@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Analysis>
+		<Title>BigFix Client - Health Check - Windows</Title>
+		<Description><![CDATA[&lt;enter a description of the analysis here&gt; ]]></Description>
+		<Relevance>windows of operating system</Relevance>
+		<Relevance>exists scheduled task "Install BigFix"</Relevance>
+		<Source>Internal</Source>
+		<SourceReleaseDate>2016-08-18</SourceReleaseDate>
+		<Domain>BESC</Domain>
+		<Property Name="Client Health Check - Status Log - Windows" ID="1" EvaluationPeriod="P1D"><![CDATA[(time generated of it, description of it) of records whose (time generated of it > now - day * 5 and event id of it = 1337) of application event log ]]></Property>
+		<Property Name="Client Health Check - Last Check - Windows" ID="2" EvaluationPeriod="PT12H">last run time of scheduled task "Install BigFix"</Property>
+		<Property Name="Client Health Check - Last Result - Windows" ID="3" EvaluationPeriod="PT12H">last task result of scheduled task "Install BigFix"</Property>
+	</Analysis>
+</BES>
