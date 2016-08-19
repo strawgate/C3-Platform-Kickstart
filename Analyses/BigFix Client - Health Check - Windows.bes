@@ -3,14 +3,16 @@
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Analysis>
 		<Title>BigFix Client - Health Check - Windows</Title>
-		<Description><![CDATA[&lt;enter a description of the analysis here&gt; ]]></Description>
+		<Description>Provides Health Check information from the Client Health Check Script</Description>
 		<Relevance>windows of operating system</Relevance>
-		<Relevance>exists scheduled task "Install BigFix"</Relevance>
+		<Relevance>exists event log "BigFix Client Health"</Relevance>
 		<Source>Internal</Source>
 		<SourceReleaseDate>2016-08-18</SourceReleaseDate>
 		<Domain>BESC</Domain>
-		<Property Name="Client Health Check - Status Log - Windows" ID="1" EvaluationPeriod="P1D"><![CDATA[(time generated of it, description of it) of records whose (time generated of it > now - day * 5 and event id of it = 1337) of application event log ]]></Property>
-		<Property Name="Client Health Check - Last Check - Windows" ID="2" EvaluationPeriod="PT12H">last run time of scheduled task "Install BigFix"</Property>
-		<Property Name="Client Health Check - Last Result - Windows" ID="3" EvaluationPeriod="PT12H">last task result of scheduled task "Install BigFix"</Property>
+		<Property Name="Client Health Check - Errors - Windows" ID="5" EvaluationPeriod="PT12H"><![CDATA[(time generated of it, description of it) of records whose (time generated of it > now - day * 5 and event id of it = 1340) of event log "BigFix Client Health" ]]></Property>
+		<Property Name="Client Health Check - Last Event - Windows" ID="6" EvaluationPeriod="PT12H">(time generated of it, description of it) of record (record count of it) of event log "BigFix Client Health" </Property>
+		<Property Name="Client Health Check - Last Repair - Windows" ID="7" EvaluationPeriod="PT12H">maximum of times generated of records whose (event id of it = 1339) of event log "BigFix Client Health" </Property>
+		<Property Name="Client Health Check - Failure Messages - Windows" ID="9" EvaluationPeriod="PT12H">(time generated of it, description of it) of records whose (event id of it = 1340) of event log "BigFix Client Health" </Property>
+		<Property Name="Client Health Check - Last Failure - Windows" ID="10">maximum of times generated of records whose (event id of it = 1340) of event log "BigFix Client Health" </Property>
 	</Analysis>
 </BES>

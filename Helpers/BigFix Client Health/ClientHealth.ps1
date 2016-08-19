@@ -9,8 +9,6 @@ Function Check-ClientExe {
     )
     if (!(test-path $InstallDir)) {throw "BigFix Installation directory missing"}
     if (!(test-path "$InstallDir\besclient.exe")) {throw "BigFix executable missing"}
-
-    write-log "BigFix Client Executable Health Check Passed"
 }
 
 Function Check-ClientLogs {
@@ -31,14 +29,10 @@ Function Check-ClientLogs {
     }
 
     if (!(test-path "$InstallDir\besclient.exe")) {throw "BigFix executable missing"}
-
-    write-log "BigFix Client Log Health Check Passed"
 }
 
 Function Check-ClientRegistry {
     if(!(Get-InstallDir)) { throw "Unable to locate BigFix in the Windows Registry" }
-
-    write-log "BigFix Client Registry Health Check Passed"
 }
 
 Function Get-InstallDir {
@@ -69,7 +63,7 @@ Function Check-Service {
 }
 
 Function Backup-BESData {
-    write-log "Backing up __BESData"
+    write-log -Text "Backing up __BESData" -ID "1338"
 
     $InstallDir = Get-InstallDir
     if(!($InstallDir)) {write-log "Nothing to backup"; return}
@@ -80,13 +74,7 @@ Function Backup-BESData {
 }
 
 Function Clean-BigFix {
-    write-log "Cleaning off BigFix"
-    
-    start-process "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe" -ArgumentList "/silent /client /force" -wait
-}
-
-Function Clean-BigFix {
-    write-log "Cleaning off BigFix"
+    write-log -Text "Cleaning off BigFix" -ID "1338"
     
     start-process "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe" -ArgumentList "/silent /client /force" -wait
 }
@@ -97,7 +85,7 @@ Function Cache-Downloads {
     $wc = new-object System.Net.WebClient
 
     #Cleaner
-    write-log "Downloading Cleaner"
+    write-log -Text "Downloading Cleaner" -ID "1338"
 
     $Source = "https://www.ibm.com/developerworks/community/wikis/form/anonymous/api/wiki/90553c0b-42eb-4df0-9556-d3c2e0ac4c52/page/90bfd4e5-98b9-4a9b-a6cb-812f1f8d5702/attachment/63b54d70-2290-4044-8b67-6eb0a4d66cfc/media/BESRemove9.5.0.311.exe"
     $Destination = "$($env:windir)\BigFix\Installer Cache\BES-Clean.exe"
@@ -106,7 +94,7 @@ Function Cache-Downloads {
     $wc.DownloadFile($source, $destination)
 
     # Setup
-    write-log "Downloading BigFix Setup" 
+    write-log -Text "Downloading BigFix Setup"  -ID "1338"
     
     $Source = $Installer
     $Destination = "$($env:windir)\BigFix\Installer Cache\BES-Setup.exe"
@@ -116,7 +104,7 @@ Function Cache-Downloads {
     if (!(test-path "$Destination")) { throw "Error Downloading Installer" }
 
     #Masthead
-    write-log "Downloading MastHead"
+    write-log "Downloading MastHead" -ID "1338"
     
     $Source = $Masthead
     $Destination = "$($env:windir)\BigFix\Installer Cache\masthead.afxm"
@@ -135,27 +123,32 @@ Function Install-BigFix {
 }
 
 function write-log {
-    param ( $Text )
+    param (
+        $Text,
+        $ID = 1337
+    )
 
-    
-    new-eventlog -source BFInstall -logname Application -ErrorAction SilentlyContinue
+    New-EventLog -LogName "BigFix Client Health" -Source "Client Health" -ErrorAction SilentlyContinue
+    Limit-EventLog -LogName "BigFix Client Health" -Retention 28 -ErrorAction SilentlyContinue
 
     write-host $Text
-    write-eventlog -logname Application -source BFInstall -eventID 1337 -entrytype Information -message "$Text"
+    write-eventlog -logname "BigFix Client Health" -source "Client Health" -eventID $ID -entrytype Information -message "$Text"
 }
 
 try {
     Check-Service
     Get-InstallDir
+    throw "test"
     Check-ClientRegistry
     Check-ClientExe -InstallDir (Get-InstallDir)
     Check-ClientLogs -InstallDir (Get-InstallDir)
+    write-log "BigFix Client Health Check Passed"
 } catch {
-    write-log $_.Exception.Message
+    write-log -Text $_.Exception.Message -ID "1340"
     
     Cache-Downloads
 
-    write-log "Stopping BESClient Service"
+    write-log -Text "Stopping BESClient Service" -ID "1338"
     Stop-service -Name BESClient -ErrorAction SilentlyContinue -Force
 
     start-sleep -Seconds 5
@@ -166,5 +159,5 @@ try {
     
     Install-BigFix
 
-    write-log "Done with Healthcheck"
+    write-log -Text "Done with Client Repair" -ID "1339"
 }
