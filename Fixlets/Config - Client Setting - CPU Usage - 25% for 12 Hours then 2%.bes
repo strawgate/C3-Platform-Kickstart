@@ -4,9 +4,9 @@
 	<Fixlet>
 		<Title>Config - Client Setting - CPU Usage - 25% for 12 Hours then 2%</Title>
 		<Description><![CDATA[<P>This fixlet will set the client workidle to 125/500 setting the CPU usage to about 25% of one CPU core for 12 hours. After twelve hours it will become relevant again and switch the CPU to the default 2% of one CPU core.</P>
-<P>This Fixlet is Action Settings Locked to only apply twice. This means it will not interfere with </P>
+<P>This Fixlet is Action Settings Locked to only apply three times.</P>
 <P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
-		<Relevance><![CDATA[if (minimum of subscribe times of sites > now - 12*hour) then ((value of setting "_BESClient_Resource_WorkIdle" of client != "125") | true or (value of setting "_BESClient_Resource_SleepIdle" of client != "375") | true) else ((value of setting "_BESClient_Resource_WorkIdle" of client != "10") | true or (value of setting "_BESClient_Resource_SleepIdle" of client != "490") | true)]]></Relevance>
+		<Relevance><![CDATA[if (minimum of subscribe times of sites > now - 12*hour) then ((value of setting "_BESClient_Resource_WorkIdle" of client != "125") | true or (value of setting "_BESClient_Resource_SleepIdle" of client != "375") | true) else ((value of setting "_BESClient_Resource_WorkIdle" of client = "125") | true or (value of setting "_BESClient_Resource_SleepIdle" of client = "375") | true)]]></Relevance>
 		<Category></Category>
 		<Source>Internal</Source>
 		<SourceID></SourceID>
@@ -44,7 +44,7 @@ endif]]></ActionScript>
 				<PreActionCacheDownload>false</PreActionCacheDownload>
 				<Reapply>true</Reapply>
 				<HasReapplyLimit>true</HasReapplyLimit>
-				<ReapplyLimit>2</ReapplyLimit>
+				<ReapplyLimit>3</ReapplyLimit>
 				<HasReapplyInterval>false</HasReapplyInterval>
 				<HasRetry>false</HasRetry>
 				<HasTemporalDistribution>false</HasTemporalDistribution>
