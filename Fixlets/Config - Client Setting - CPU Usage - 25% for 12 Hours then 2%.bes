@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Fixlet>
+		<Title>Config - Client Setting - CPU Usage - 25% for 12 Hours then 2%</Title>
+		<Description><![CDATA[<P>This fixlet will set the client workidle to 125/500 setting the CPU usage to about 25% of one CPU core for 12 hours. After twelve hours it will become relevant again and switch the CPU to the default 2% of one CPU core.</P>
+<P>This Fixlet is Action Settings Locked to only apply twice. This means it will not interfere with </P>
+<P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
+		<Relevance><![CDATA[if (minimum of subscribe times of sites > now - 12*hour) then ((value of setting "_BESClient_Resource_WorkIdle" of client != "125") | true or (value of setting "_BESClient_Resource_SleepIdle" of client != "375") | true) else ((value of setting "_BESClient_Resource_WorkIdle" of client != "10") | true or (value of setting "_BESClient_Resource_SleepIdle" of client != "490") | true)]]></Relevance>
+		<Category></Category>
+		<Source>Internal</Source>
+		<SourceID></SourceID>
+		<SourceReleaseDate>2016-05-30</SourceReleaseDate>
+		<SourceSeverity></SourceSeverity>
+		<CVENames></CVENames>
+		<SANSID></SANSID>
+		<Domain>BESC</Domain>
+		<DefaultAction ID="Action1">
+			<Description>
+				<PreLink>Click </PreLink>
+				<Link>here</Link>
+				<PostLink> to deploy this action.</PostLink>
+			</Description>
+			<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+if {minimum of subscribe times of sites > now - 12*hour}
+	setting "_BESClient_Resource_WorkIdle"="125" on "{parameter "action issue date" of action}" for client
+	setting "_BESClient_Resource_SleepIdle"="375" on "{parameter "action issue date" of action}" for client
+else 
+	setting "_BESClient_Resource_WorkIdle"="10" on "{parameter "action issue date" of action}" for client
+	setting "_BESClient_Resource_SleepIdle"="490" on "{parameter "action issue date" of action}" for client
+endif]]></ActionScript>
+			<Settings>
+				<PreActionShowUI>false</PreActionShowUI>
+				<HasRunningMessage>false</HasRunningMessage>
+				<HasTimeRange>false</HasTimeRange>
+				<HasStartTime>false</HasStartTime>
+				<HasEndTime>true</HasEndTime>
+				<EndDateTimeLocalOffset>P2D</EndDateTimeLocalOffset>
+				<HasDayOfWeekConstraint>false</HasDayOfWeekConstraint>
+				<UseUTCTime>false</UseUTCTime>
+				<ActiveUserRequirement>NoRequirement</ActiveUserRequirement>
+				<ActiveUserType>AllUsers</ActiveUserType>
+				<HasWhose>false</HasWhose>
+				<PreActionCacheDownload>false</PreActionCacheDownload>
+				<Reapply>true</Reapply>
+				<HasReapplyLimit>true</HasReapplyLimit>
+				<ReapplyLimit>2</ReapplyLimit>
+				<HasReapplyInterval>false</HasReapplyInterval>
+				<HasRetry>false</HasRetry>
+				<HasTemporalDistribution>false</HasTemporalDistribution>
+				<ContinueOnErrors>true</ContinueOnErrors>
+				<PostActionBehavior Behavior="Nothing"></PostActionBehavior>
+				<IsOffer>false</IsOffer>
+			</Settings>
+			<SettingsLocks>
+				<ActionUITitle>false</ActionUITitle>
+				<PreActionShowUI>false</PreActionShowUI>
+				<PreAction>
+					<Text>false</Text>
+					<AskToSaveWork>false</AskToSaveWork>
+					<ShowActionButton>false</ShowActionButton>
+					<ShowCancelButton>false</ShowCancelButton>
+					<DeadlineBehavior>false</DeadlineBehavior>
+					<ShowConfirmation>false</ShowConfirmation>
+				</PreAction>
+				<HasRunningMessage>false</HasRunningMessage>
+				<RunningMessage>
+					<Text>false</Text>
+				</RunningMessage>
+				<TimeRange>false</TimeRange>
+				<StartDateTimeOffset>false</StartDateTimeOffset>
+				<EndDateTimeOffset>false</EndDateTimeOffset>
+				<DayOfWeekConstraint>false</DayOfWeekConstraint>
+				<ActiveUserRequirement>false</ActiveUserRequirement>
+				<ActiveUserType>false</ActiveUserType>
+				<Whose>false</Whose>
+				<PreActionCacheDownload>false</PreActionCacheDownload>
+				<Reapply>true</Reapply>
+				<ReapplyLimit>false</ReapplyLimit>
+				<RetryCount>false</RetryCount>
+				<RetryWait>false</RetryWait>
+				<TemporalDistribution>false</TemporalDistribution>
+				<ContinueOnErrors>false</ContinueOnErrors>
+				<PostActionBehavior>
+					<Behavior>false</Behavior>
+					<AllowCancel>false</AllowCancel>
+					<Deadline>false</Deadline>
+					<Title>false</Title>
+					<Text>false</Text>
+				</PostActionBehavior>
+				<IsOffer>false</IsOffer>
+				<AnnounceOffer>false</AnnounceOffer>
+				<OfferCategory>false</OfferCategory>
+				<OfferDescriptionHTML>false</OfferDescriptionHTML>
+			</SettingsLocks>
+		</DefaultAction>
+	</Fixlet>
+</BES>
