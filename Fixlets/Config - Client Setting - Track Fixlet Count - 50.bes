@@ -2,7 +2,7 @@
 
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Fixlet>
-		<Title>Config - Client Setting - Track Fixlet Count - 50 </Title>
+		<Title>Config - Client Setting - Track Fixlet Count - 50</Title>
 		<Description><![CDATA[<P>This Fixlet changes the tracking settings on the client to track the 50 slowest fixlet evaluations on the client.</P>
 <P>&nbsp;For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance>not exists settings "_BESClient_Resource_TrackingCount" whose (value of it as string = "50") of client</Relevance>
