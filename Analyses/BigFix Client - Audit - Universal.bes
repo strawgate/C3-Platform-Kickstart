@@ -4,28 +4,55 @@
 	<Analysis>
 		<Title>BigFix Client - Audit - Universal</Title>
 		<Description><![CDATA[<P>This analysis provides detailed information on the current status of the BigFix Client.</P>
-<P>This analysis is almost entirely based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>
+<P>For the sake of the installed BigFix agent and for troubleshooting the evaluation cycles of clients it is highly recommended to tweak the client evaluation cycle tracking settings using:</P>
+<OL>
+<LI>Config - Client Setting - Track Fixlet Count - 50</LI>
+<LI>Config - Client Setting - Track Fixlet Time Span - 1 Day</LI></OL>
+<P>This analysis is almost based on the analysis written by jgstew (kudos, compliments, and credit completely to him) available here: <A href="https://bigfix.me/analysis/details/2994765">https://bigfix.me/analysis/details/2994765</A></P>
+<P>This Analysis provides information on the Installed BigFix Client:</P>
+<P>Evaluation Cycle:</P>
+<UL>
+<LI>Average from last 10 evaluation cycles 
+<LI>Maximum time required for cycles since agent start 
+<LI>Eval %'s for various groups of content 
+<LI>Evaluations slower than 15 seconds 
+<LI>Evaluations slower than 1 minute 
+<LI>Evaluations slower than 15 minutes 
+<LI>Evaluations slower than 60 minutes 
+<LI>All Slow Evaluations</LI></UL>
+<P>UDP Pings</P>
+<UL>
+<LI>Last UDP Ping Received 
+<LI>UDP Pings currently being received</LI></UL>
+<P>CPU Utilization:</P>
+<UL>
+<LI>Max CPU Usage the Client is allowed to use</LI></UL>
+<P>Client Logs</P>
+<UL>
+<LI>Number of logs 
+<LI>Number of log backups</LI></UL>
 <P>For general information or to report issues with C3 Platform Kickstart content please visit GitHub here: <A href="https://github.com/strawgate/C3-Platform-Kickstart">https://github.com/strawgate/C3-Platform-Kickstart</A></P>]]></Description>
 		<Relevance><![CDATA[version of client > "8.0" /* some of the properties may work fine in older clients, and some require v9+ */]]></Relevance>
 		<Domain>BESC</Domain>
-		<Property Name="Client - Evaluation Cycle (Avg) - Universal" ID="7" EvaluationPeriod="PT6H">less significance 3 of (average of evaluationcycle of client as floating point / 1000 / 60)</Property>
+		<Property Name="Client - Evaluation Cycle (Average) - Universal" ID="7" EvaluationPeriod="PT6H">relative significance place 1 of (average of evaluationcycle of client as floating point / 1000 / 60)</Property>
 		<Property Name="Client - Evaluation Cycle (Max) - Universal" ID="8" EvaluationPeriod="PT6H">((maximum of it /1000* second)/minute) of evaluationcycle of client</Property>
-		<Property Name="Client - Max CPU Usage - Universal" ID="18" EvaluationPeriod="P1D">(((((it)/((it)+((if (not exists setting "_BESClient_Resource_SleepIdle" of client OR not exists value of setting "_BESClient_Resource_SleepIdle" of client) then 480 /* Default value */ else (value of setting "_BESClient_Resource_SleepIdle" of client as integer)) as floating point))) / (sum of cores of cpupackage as floating point)) * 100) as integer) of ((if (not exists setting "_BESClient_Resource_WorkIdle" of client OR not exists value of setting "_BESClient_Resource_WorkIdle" of client) then 10 /* Default value */ else (value of setting "_BESClient_Resource_WorkIdle" of client as integer)) as floating point)</Property>
-		<Property Name="Client - Installation Directory - Universal" ID="22" EvaluationPeriod="P7D">parent folder of client</Property>
-		<Property Name="Client - Last UDP Ping - Universal" ID="24" EvaluationPeriod="PT1H">last command times of client</Property>
-		<Property Name="Client - WorkIdle+SleepIdle - Universal" ID="26" EvaluationPeriod="PT12H">(if (not exists setting "_BESClient_Resource_WorkIdle" of client OR not exists value of setting "_BESClient_Resource_WorkIdle" of client) then 10 /* Default value */ else (value of setting "_BESClient_Resource_WorkIdle" of client as integer)) + (if (not exists setting "_BESClient_Resource_SleepIdle" of client OR not exists value of setting "_BESClient_Resource_SleepIdle" of client) then 480 /* Default value */ else (value of setting "_BESClient_Resource_SleepIdle" of client as integer))</Property>
-		<Property Name="Client - Slow Evaluations - Universal" ID="28" EvaluationPeriod="P1D">following texts of firsts ": " of track fixlets whose(it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client</Property>
+		<Property Name="Client - Resultant CPU Usage - Universal" ID="18" EvaluationPeriod="P1D">(((((it)/((it)+((if (not exists setting "_BESClient_Resource_SleepIdle" of client OR not exists value of setting "_BESClient_Resource_SleepIdle" of client) then 480 /* Default value */ else (value of setting "_BESClient_Resource_SleepIdle" of client as integer)) as floating point))) / (sum of cores of cpupackage as floating point)) * 100) as integer) of ((if (not exists setting "_BESClient_Resource_WorkIdle" of client OR not exists value of setting "_BESClient_Resource_WorkIdle" of client) then 10 /* Default value */ else (value of setting "_BESClient_Resource_WorkIdle" of client as integer)) as floating point)</Property>
+		<Property Name="Client - WorkIdle+SleepIdle - Universal" ID="26" EvaluationPeriod="PT12H">(value of setting "_BESClient_Resource_WorkIdle" of client as string as integer | 10) + (value of setting "_BESClient_Resource_SleepIdle" of client  as string as integer | 480)</Property>
 		<Property Name="Client - Eval % Relevance - Universal" ID="29" EvaluationPeriod="P1D">((relevance percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
-		<Property Name="Client - Eval % property - Universal" ID="30" EvaluationPeriod="P1D">((property percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
-		<Property Name="Client - Eval % action - Universal" ID="31" EvaluationPeriod="P1D">((action percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
-		<Property Name="Client - Eval % gather - Universal" ID="32" EvaluationPeriod="P1D">((gather percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
-		<Property Name="Client - Eval % report - Universal" ID="33" EvaluationPeriod="P1D">((report percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
-		<Property Name="First Report Time" ID="35" EvaluationPeriod="P1D">minimum of subscribe times of sites</Property>
-		<Property Name="Client - BESData Folder - Universal" ID="47" EvaluationPeriod="P7D">data folder of client</Property>
-		<Property Name="Client - BigFix Log Folder - Universal" ID="48" EvaluationPeriod="P7D">folder "Logs" of folder "__Global" of data folder of client</Property>
-		<Property Name="Client - Folders of SystemRoot - Universal" ID="49" EvaluationPeriod="P1D">folders of root folder of drive of system folder</Property>
-		<Property Name="Client - Number of BigFix Log Files - Universal" ID="56" EvaluationPeriod="P7D">number of files whose((name of it as lowercase ends with ".log") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of data folder of client</Property>
-		<Property Name="Client - Number of BigFix Log Backups - Universal" ID="57" EvaluationPeriod="P7D">number of files whose((name of it as lowercase ends with ".bkg") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of data folder of client</Property>
-		<Property Name="Client - Slow Evaluations with Times - Universal" ID="60" EvaluationPeriod="P7D">track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % Property - Universal" ID="30" EvaluationPeriod="P1D">((property percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % Action - Universal" ID="31" EvaluationPeriod="P1D">((action percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % Gather - Universal" ID="32" EvaluationPeriod="P1D">((gather percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - Eval % Report - Universal" ID="33" EvaluationPeriod="P1D">((report percent of it * 100) / (100-(sleep percent of it))) of evaluationcycle of client</Property>
+		<Property Name="Client - First Report Time - Universal" ID="35" EvaluationPeriod="P1D">minimum of subscribe times of sites</Property>
+		<Property Name="Client - Evaluations Slower than 15 Seconds - Universal" ID="61" EvaluationPeriod="PT1H"><![CDATA[it whose (preceding text of first ":" of it as floating point > 15 as floating point) of track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client]]></Property>
+		<Property Name="Client - Evaluations Slower than 1 Minute - Universal" ID="62" EvaluationPeriod="PT1H"><![CDATA[it whose (preceding text of first ":" of it as floating point > 60 as floating point) of track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client]]></Property>
+		<Property Name="Client - Evaluations Slower than 15 Minutes - Universal" ID="63" EvaluationPeriod="PT1H"><![CDATA[it whose (preceding text of first ":" of it as floating point > 900 as floating point) of track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client]]></Property>
+		<Property Name="Client - Evaluations Slower than 1 Hour - Universal" ID="64"><![CDATA[it whose (preceding text of first ":" of it as floating point > 3600 as floating point) of track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client]]></Property>
+		<Property Name="Client - Slow Evaluations with Times - Universal" ID="65" EvaluationPeriod="PT1H">track fixlets whose (it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client</Property>
+		<Property Name="Client - Slow Evaluations - Universal" ID="66" EvaluationPeriod="PT1H">following texts of firsts ": " of track fixlets whose(it contains "CustomSite" OR it as lowercase contains "opsite") of evaluationcycle of client</Property>
+		<Property Name="Client - Last UDP Ping - Universal" ID="67" EvaluationPeriod="PT1H">last command times of client</Property>
+		<Property Name="Client - Receiving UDP Pings - Universal" ID="68" EvaluationPeriod="P1D"><![CDATA[exist last command time of client | exists lines containing " command received" of files whose (length of name of it = 12 and modification time of it > now - 2*day) of folders "Logs" of folders "__Global" of data folders of client]]></Property>
+		<Property Name="Client - Number of BigFix Log Files - Universal" ID="69" EvaluationPeriod="P1D">number of files whose((name of it as lowercase ends with ".log") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of data folder of client</Property>
+		<Property Name="Client - Number of BigFix Log Backups - Universal" ID="70" EvaluationPeriod="P1D">number of files whose((name of it as lowercase ends with ".bkg") AND exists lines of it AND 12 = length of name of it) of folders "Logs" of folders "__Global" of data folder of client</Property>
 	</Analysis>
 </BES>
